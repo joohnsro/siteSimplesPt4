@@ -14,11 +14,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="?pagina=home.php">Home</a></li>
-                <li><a href="?pagina=empresa.php">Empresa</a></li>
-                <li><a href="?pagina=produtos.php">Produtos</a></li>
-                <li><a href="?pagina=servicos.php">Serviços</a></li>
-                <li><a href="?pagina=contato.php">Contato</a></li>
+                <li><a href="home">Home</a></li>
+                <li><a href="empresa">Empresa</a></li>
+                <li><a href="produtos">Produtos</a></li>
+                <li><a href="servicos">Serviços</a></li>
+                <li><a href="contato">Contato</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

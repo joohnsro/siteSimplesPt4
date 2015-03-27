@@ -12,7 +12,7 @@
     </p>
 <?php } else { ?>
 
-<form class="form-horizontal" method="post" action="index.php?pagina=contato.php">
+<form class="form-horizontal" method="post" action="contato">
     <div class="form-group">
         <label for="nome" class="col-sm-2 control-label">Nome</label>
         <div class="col-sm-10">

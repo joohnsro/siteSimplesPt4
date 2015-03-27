@@ -1,3 +1,34 @@
+<?php
+$rota = parse_url("http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
+$path = substr($rota["path"], 1);
+if($path == ""){
+    $path = "home";
+}
+$argRoutes = ["home", "empresa", "produtos", "servicos", "contato"];
+
+function validaRota($pathExist, $routeAdd, $path)
+{
+    if($pathExist == "no" || $routeAdd == "no"){
+        header("HTTP/1.0 404 Not Found");
+        return $pathOk = "404.php";
+    } else {
+        return $pathOk = $path.".php";
+    }
+}
+function pathExist($path){
+    if(!file_exists($path.".php")){
+        return "no";
+    }
+}
+
+function routeAdd($path, $argRoutes){
+    if(!in_array($path, $argRoutes)){
+        return "no";
+    }
+}
+$pathOk = validaRota(pathExist($path), routeAdd($path, $argRoutes), $path);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,32 +50,25 @@
 </head>
 <body>
 
-    <?php require_once("menu.php"); ?>
+<?php require_once("menu.php"); ?>
 
-    <div class="container">
+<div class="container">
+    <?php
+    require_once($pathOk);
+    ?>
+
+    <hr>
+    <p class="text-center">
+        Todos os direitos reservados -
         <?php
-        if(isset($_GET["pagina"]) && $_GET["pagina"] != ""){
-            if(file_exists($_GET["pagina"])){
-                require_once($_GET["pagina"]);
-            } else {
-                require_once("404.php");
-            }
-        } else {
-            require_once("home.php");
-        }
-        ?>
+        date_default_timezone_set("America/Sao_Paulo");
+        echo date("Y"); ?>
+    </p>
+</div>
 
-        <hr>
-        <p class="text-center">
-            Todos os direitos reservados -
-            <?php
-            date_default_timezone_set("America/Sao_Paulo");
-            echo date("Y"); ?>
-        </p>
-    </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
