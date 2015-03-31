@@ -1,32 +1,5 @@
 <?php
-$rota = parse_url("http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]);
-$path = substr($rota["path"], 1);
-if($path == ""){
-    $path = "home";
-}
-$argRoutes = ["home", "empresa", "produtos", "servicos", "contato"];
-
-function validaRota($pathExist, $routeAdd, $path)
-{
-    if($pathExist == "no" || $routeAdd == "no"){
-        header("HTTP/1.0 404 Not Found");
-        return $pathOk = "404.php";
-    } else {
-        return $pathOk = $path.".php";
-    }
-}
-function pathExist($path){
-    if(!file_exists($path.".php")){
-        return "no";
-    }
-}
-
-function routeAdd($path, $argRoutes){
-    if(!in_array($path, $argRoutes)){
-        return "no";
-    }
-}
-$pathOk = validaRota(pathExist($path), routeAdd($path, $argRoutes), $path);
+require_once "functions.php";
 ?>
 
 <!DOCTYPE html>
@@ -53,8 +26,26 @@ $pathOk = validaRota(pathExist($path), routeAdd($path, $argRoutes), $path);
 <?php require_once("menu.php"); ?>
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="busca" method="get" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <label for="s" class="col-md-2 control-label">Faça uma busca:</label>
+                    <div class="col-md-9">
+                        <input type="text" id="s" name="s" class="form-control" placeholder="Digite uma palavra-chave..." required="required">
+                    </div>
+                    <input type="submit" class="btn btn-primary col-md-1" value="Enviar">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <hr />
+</div>
+
+<div class="container">
     <?php
-    require_once($pathOk);
+    rota();
     ?>
 
     <hr>
