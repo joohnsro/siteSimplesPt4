@@ -30,7 +30,15 @@ function rota(){
             echo $res['conteudo'];
         } else {
             if (file_exists($path.".php")){
-                require_once $path.".php";
+
+                session_start();
+                if(isset($_SESSION['logado']) && $_SESSION['logado'] == 1 && $path == 'login'){
+                    header("Location: /admin");
+                } else {
+                    session_destroy();
+                    require_once $path.".php";
+                }
+
             } else {
                 Erro404();
             }
@@ -40,4 +48,33 @@ function rota(){
         Erro404();
     }
 
+}
+
+if(isset($_GET['autentica'])){
+
+    $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : null;
+    $senha = (isset($_POST['senha'])) ? $_POST['senha'] : null;
+
+    require_once "conexaoDB.php";
+    $conn = conexaoDB();
+
+    $sql = "Select * from administradores where usuario = :usuario";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue("usuario", $usuario);
+    $stmt->execute();
+
+    if($aut = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+        if(password_verify($senha, $aut['senha'])){
+            session_start();
+            $_SESSION["logado"] = 1;
+
+            header("Location: /admin");
+        } else {
+            header("Location: login");
+        }
+
+    } else {
+        header("Location: login");
+    }
 }

@@ -7,11 +7,16 @@ echo "#### Executando Fixture ####\n";
 $conn = conexaoDB();
 
 echo "Removendo tabela";
+$conn->query("DROP TABLE IF EXISTS administradores;");
 $conn->query("DROP TABLE IF EXISTS clientes;");
 $conn->query("DROP TABLE IF EXISTS paginas;");
 echo " - OK \n";
 
 echo "Criando tabelas";
+$conn->query("CREATE TABLE administradores (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL);");
 $conn->query("CREATE TABLE clientes (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -23,6 +28,13 @@ $conn->query("CREATE TABLE paginas (
 echo " - OK\n";
 
 echo "Inserindo dados";
+$usuario = "admin";
+$senha = password_hash("admin", PASSWORD_DEFAULT);
+$stmt = $conn->prepare("INSERT INTO administradores (usuario, senha) VALUES (:usuario, :senha)");
+$stmt->bindValue("usuario", $usuario);
+$stmt->bindValue("senha", $senha);
+$stmt->execute();
+
 $clientes = array(
     array(
         'nome' => 'Jonathan',
@@ -46,7 +58,8 @@ $paginas = array(
     array( 'nome' => 'produtos', 'conteudo' => '<h1>Produtos</h1><p>Aqui listamos todos os produtos.</p>' ),
     array( 'nome' => 'servicos', 'conteudo' => '<h1>Serviços</h1><p>Os serviços serão colocados aqui detalhadamente.</p>' ),
     array( 'nome' => 'contato', 'conteudo' => ''),
-    array( 'nome' => 'busca', 'conteudo' => '')
+    array( 'nome' => 'busca', 'conteudo' => ''),
+    array( 'nome' => 'login', 'conteudo' => '')
 );
 
 foreach($paginas as $pagina){

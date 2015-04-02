@@ -9,10 +9,19 @@ require_once "functions.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>1º Projeto PHP - Code Education</title>
+    <title>Projeto PHP - Code Education</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        /*
+         * Header do label busca
+         */
+        .header-label {
+            line-height: 30px;
+            margin-bottom: 0;
+        }
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,13 +37,15 @@ require_once "functions.php";
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <form action="busca" method="get" role="form" class="form-horizontal">
+            <form action="busca" method="get" role="form" class="">
                 <div class="form-group">
-                    <label for="s" class="col-md-2 control-label">Faça uma busca:</label>
-                    <div class="col-md-9">
+                    <label for="s" class="col-lg-2 col-md-2 col-sm-3 hidden-xs header-label">Faça uma busca:</label>
+                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-8">
                         <input type="text" id="s" name="s" class="form-control" placeholder="Digite uma palavra-chave..." required="required">
                     </div>
-                    <input type="submit" class="btn btn-primary col-md-1" value="Enviar">
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                        <input type="submit" class="btn btn-primary form-control" value="Enviar">
+                    </div>
                 </div>
             </form>
         </div>

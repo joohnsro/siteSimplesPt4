@@ -19,6 +19,7 @@
                 <li><a href="produtos">Produtos</a></li>
                 <li><a href="servicos">Serviços</a></li>
                 <li><a href="contato">Contato</a></li>
+                <li><a href="login">Área restrita</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
